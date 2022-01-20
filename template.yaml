@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Hello World with SAM
+
+Global:
+  Function:
+    MemorySize: 128           #this and below it are all optional properties
+    Runtime: nodejs8.10
+    Timeout: 5
+
+Resources:
+  eventLogger: #logger lambda function with name eventLogger
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: logger.handler   #filename.exportFunctionName
+      Timeout: 3                # override global values
+
+  addNumbers:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: add.handler
+      
+
+
+  # explicitly defining an API
+  # TestAPI:                      
+  #   Type: AWS::Serverless::Api  # define API
+  #   Properties:
+  #     StageName: test
+  #     DefinitionUri: swagger-def.yml
