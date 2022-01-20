@@ -14,12 +14,24 @@ Resources:
     Properties:
       Handler: logger.handler   #filename.exportFunctionName
       Timeout: 3                # override global values
+      Events:
+        GetLogs:    #event trigger
+          Type: Api
+          Properties:
+            Path: /logs
+            Method: get
+          
 
   addNumbers:
     Type: AWS::Serverless::Function
     Properties:
       Handler: add.handler
-      
+      Events:      #To use Implicit API definition: add API Gateway event trigger to our lambda functions
+        PostAdd:
+          Type: Api
+          Properties:
+            Path: /add
+            Method: post
 
 
   # explicitly defining an API
