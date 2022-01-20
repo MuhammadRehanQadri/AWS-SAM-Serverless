@@ -15,12 +15,19 @@ Resources:
       Handler: logger.handler   #filename.exportFunctionName
       Timeout: 3                # override global values
       Events:
-        GetLogs:    #event trigger
+        GetLogs:    #event trigger ---> name of the event
           Type: Api
           Properties:
             Path: /logs
             Method: get
-          
+        FileUpload:
+          Type: S3
+          Properties:
+            Bucket: !Ref MyBucket
+            Events: s3:ObjectCreated:*
+  
+  MyBucket:
+    Type: AWS::S3::Bucket 
 
   addNumbers:
     Type: AWS::Serverless::Function
